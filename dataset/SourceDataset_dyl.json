@@ -1,0 +1,48 @@
+{
+	"name": "SourceDataset_dyl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HTTPWeather",
+			"type": "LinkedServiceReference"
+		},
+		"type": "HttpFile",
+		"structure": [
+			{
+				"name": "_id",
+				"type": "String"
+			},
+			{
+				"name": "date",
+				"type": "String"
+			},
+			{
+				"name": "dateint",
+				"type": "Int64"
+			},
+			{
+				"name": "airport",
+				"type": "String"
+			},
+			{
+				"name": "temp",
+				"type": "Int64"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "JsonFormat",
+				"filePattern": "arrayOfObjects",
+				"jsonPathDefinition": {
+					"_id": "$.['_id']",
+					"date": "$.['date']",
+					"dateint": "$.['dateint']",
+					"airport": "$.['airport']",
+					"temp": "$.['temp']"
+				}
+			},
+			"requestMethod": "GET",
+			"additionalHeaders": "x-apikey: 5a31643dcb25c1076c7cd9ab\nContent-Type: application/json"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

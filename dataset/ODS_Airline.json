@@ -1,0 +1,25 @@
+{
+	"name": "ODS_Airline",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure ODS DB",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Code",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Airline_Code",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[Airline]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

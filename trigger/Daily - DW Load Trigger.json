@@ -1,0 +1,34 @@
+{
+	"name": "Daily - DW Load Trigger",
+	"properties": {
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Master - Begin DW Load",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"recipient": "mesengne@microsoft.com"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2019-06-25T18:31:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						38
+					],
+					"hours": [
+						18
+					]
+				}
+			}
+		}
+	}
+}

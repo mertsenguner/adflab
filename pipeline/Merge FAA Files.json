@@ -1,0 +1,30 @@
+{
+	"name": "Merge FAA Files",
+	"properties": {
+		"activities": [
+			{
+				"name": "Run FAA Hive Merge",
+				"type": "HDInsightHive",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"scriptPath": "input/FAAMerge.hql",
+					"scriptLinkedService": {
+						"referenceName": "AzStorageStaging",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "HDI_ADFLab",
+					"type": "LinkedServiceReference"
+				}
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
