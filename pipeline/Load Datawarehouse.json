@@ -5,6 +5,7 @@
 			{
 				"name": "DW Truncate Staging",
 				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -12,6 +13,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[usp_TruncateStaging]"
 				},
@@ -38,6 +40,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource"
@@ -116,9 +119,10 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlDWSource"
+						"type": "AzureSqlSource"
 					},
 					"sink": {
 						"type": "SqlDWSink",
@@ -165,7 +169,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DW_Staging_Airport",
+						"referenceName": "ODS_Airport",
 						"type": "DatasetReference"
 					}
 				],
@@ -194,6 +198,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource"
@@ -622,6 +627,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -757,6 +763,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -896,6 +903,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[usp_LoadDimensions]"
 				},
@@ -922,6 +930,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[usp_LoadFact]"
 				},
@@ -930,7 +939,8 @@
 					"type": "LinkedServiceReference"
 				}
 			}
-		]
+		],
+		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

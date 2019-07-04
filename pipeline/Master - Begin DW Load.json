@@ -20,6 +20,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"url": "https://prod-06.eastus2.logic.azure.com:443/workflows/0a63e879180247e7ab67875cbdbaded1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cmJjKN8aS5HYuFjBKJJ1pEhkNWFUAt_Np_X81u69JkA",
 					"method": "POST",
@@ -53,6 +54,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"url": "https://prod-06.eastus2.logic.azure.com:443/workflows/0a63e879180247e7ab67875cbdbaded1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cmJjKN8aS5HYuFjBKJJ1pEhkNWFUAt_Np_X81u69JkA",
 					"method": "POST",
@@ -71,6 +73,7 @@
 			{
 				"name": "S3 to Azure Blob",
 				"type": "Copy",
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -78,6 +81,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -459,6 +463,26 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Load DW",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Send Success E-Mail",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Load Datawarehouse",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
@@ -466,7 +490,8 @@
 				"type": "string",
 				"defaultValue": "mesengne@microsoft.com"
 			}
-		}
+		},
+		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
