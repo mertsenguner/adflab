@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adflab-demos"
+		},
+		"AWS_S3_Source_connectionString": {
+			"value": ""
+		},
+		"AzStorageStaging_connectionString": {
+			"value": ""
+		},
+		"Azure DW DB_connectionString": {
+			"value": ""
+		},
+		"Azure ODS DB_connectionString": {
+			"value": ""
+		},
+		"HDI_ADFLab_clusterPassword": {
+			"value": ""
+		},
+		"HDI_ADFLab_clusterSshPassword": {
+			"value": ""
+		},
+		"HDI_ADFLab_servicePrincipalKey": {
+			"value": ""
+		},
+		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+			"value": "3d876a73-ff5a-495d-a047-036b3c6846fa"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+			"value": "adflab-test2"
+		},
+		"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+			"value": "c1080165-86c7-43ea-9a1a-d470fe632a82"
+		},
+		"HDI_ADFLab_properties_typeProperties_tenant": {
+			"value": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+			"value": "mesengne"
+		},
+		"HTTPWeather_properties_typeProperties_url": {
+			"value": "https://weather-b362.restdb.io/rest/random-weather-dec-2016"
+		},
+		"Daily - DW Load Trigger_properties_Master - Begin DW Load_parameters_recipient": {
+			"value": "mesengne@microsoft.com"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

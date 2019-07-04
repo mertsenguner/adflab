@@ -1,0 +1,1327 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "adflab-demos"
+		},
+		"AWS_S3_Source_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AWS_S3_Source'"
+		},
+		"AzStorageStaging_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzStorageStaging'"
+		},
+		"Azure DW DB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Azure DW DB'"
+		},
+		"Azure ODS DB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Azure ODS DB'"
+		},
+		"HDI_ADFLab_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDI_ADFLab'"
+		},
+		"HDI_ADFLab_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDI_ADFLab'"
+		},
+		"HDI_ADFLab_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDI_ADFLab'"
+		},
+		"HTTPWeather_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://weather-b362.restdb.io/rest/random-weather-dec-2016"
+		},
+		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "3d876a73-ff5a-495d-a047-036b3c6846fa"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "adflab-test2"
+		},
+		"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "c1080165-86c7-43ea-9a1a-d470fe632a82"
+		},
+		"HDI_ADFLab_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "mesengne"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AWS_S3_Source')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AWS_S3_Source_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzStorageStaging')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzStorageStaging_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure DW DB')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('Azure DW DB_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure ODS DB')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('Azure ODS DB_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HTTPWeather')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HTTPWeather_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AWS_S3_Source_Data_FAA')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AWS_S3_Source",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "FAAmaster.txt",
+						"container": "adf-sample-files"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "N-Number",
+						"type": "String"
+					},
+					{
+						"name": "Serial Number",
+						"type": "String"
+					},
+					{
+						"name": "MFR MDL Code",
+						"type": "String"
+					},
+					{
+						"name": "Eng MFR Code",
+						"type": "String"
+					},
+					{
+						"name": "Year MFR",
+						"type": "String"
+					},
+					{
+						"name": "Type Registrant",
+						"type": "String"
+					},
+					{
+						"name": "Name",
+						"type": "String"
+					},
+					{
+						"name": "Street 1",
+						"type": "String"
+					},
+					{
+						"name": "Street2",
+						"type": "String"
+					},
+					{
+						"name": "City",
+						"type": "String"
+					},
+					{
+						"name": "State",
+						"type": "String"
+					},
+					{
+						"name": "ZIP",
+						"type": "String"
+					},
+					{
+						"name": "Region",
+						"type": "String"
+					},
+					{
+						"name": "County ",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Last Activity Date",
+						"type": "String"
+					},
+					{
+						"name": "Cert Issue Date",
+						"type": "String"
+					},
+					{
+						"name": "Certification Requested ",
+						"type": "String"
+					},
+					{
+						"name": "Type Aircraft",
+						"type": "String"
+					},
+					{
+						"name": "Type Engine",
+						"type": "String"
+					},
+					{
+						"name": "Status Code",
+						"type": "String"
+					},
+					{
+						"name": "Mode S Code",
+						"type": "String"
+					},
+					{
+						"name": "Fractional  Ownership",
+						"type": "String"
+					},
+					{
+						"name": "Airworthiness Date",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 1",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 2",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 3",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 4",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 5",
+						"type": "String"
+					},
+					{
+						"name": "Expiration Date",
+						"type": "String"
+					},
+					{
+						"name": "Unique ID",
+						"type": "String"
+					},
+					{
+						"name": "Kit MFR Code",
+						"type": "String"
+					},
+					{
+						"name": "Kit Model",
+						"type": "String"
+					},
+					{
+						"name": "Mose S Code Hex",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AWS_S3_Source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure_Blob_Master_FA_File')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "FAAmaster.txt",
+						"folderPath": "FAAmaster",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "N-Number",
+						"type": "String"
+					},
+					{
+						"name": "Serial Number",
+						"type": "String"
+					},
+					{
+						"name": "MFR MDL Code",
+						"type": "String"
+					},
+					{
+						"name": "Eng MFR Code",
+						"type": "String"
+					},
+					{
+						"name": "Year MFR",
+						"type": "String"
+					},
+					{
+						"name": "Type Registrant",
+						"type": "String"
+					},
+					{
+						"name": "Name",
+						"type": "String"
+					},
+					{
+						"name": "Street 1",
+						"type": "String"
+					},
+					{
+						"name": "Street2",
+						"type": "String"
+					},
+					{
+						"name": "City",
+						"type": "String"
+					},
+					{
+						"name": "State",
+						"type": "String"
+					},
+					{
+						"name": "ZIP",
+						"type": "String"
+					},
+					{
+						"name": "Region",
+						"type": "String"
+					},
+					{
+						"name": "County ",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Last Activity Date",
+						"type": "String"
+					},
+					{
+						"name": "Cert Issue Date",
+						"type": "String"
+					},
+					{
+						"name": "Certification Requested ",
+						"type": "String"
+					},
+					{
+						"name": "Type Aircraft",
+						"type": "String"
+					},
+					{
+						"name": "Type Engine",
+						"type": "String"
+					},
+					{
+						"name": "Status Code",
+						"type": "String"
+					},
+					{
+						"name": "Mode S Code",
+						"type": "String"
+					},
+					{
+						"name": "Fractional  Ownership",
+						"type": "String"
+					},
+					{
+						"name": "Airworthiness Date",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 1",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 2",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 3",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 4",
+						"type": "String"
+					},
+					{
+						"name": "Other Name 5",
+						"type": "String"
+					},
+					{
+						"name": "Expiration Date",
+						"type": "String"
+					},
+					{
+						"name": "Unique ID",
+						"type": "String"
+					},
+					{
+						"name": "Kit MFR Code",
+						"type": "String"
+					},
+					{
+						"name": "Kit Model",
+						"type": "String"
+					},
+					{
+						"name": "Mose S Code Hex",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DW_Staging_Aircraft')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure DW DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "N-Number",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Serial Number",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Year MFR",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MFR-NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MODEL-NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "NUMBER-ENGINES",
+						"type": "nvarchar"
+					},
+					{
+						"name": "NUMBER-SEATS",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[Staging].[DimAircraft]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DW_Staging_Airline')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure DW DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "Code",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Airline_Code",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[Staging].[DimAirline]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DW_Staging_Airport')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure DW DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "Code",
+						"type": "varchar"
+					},
+					{
+						"name": "City_Airport",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[Staging].[DimAirport]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DW_Staging_Flight')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure DW DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "YEAR",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "MONTH",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "FL_DATE",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "UNIQUE_CARRIER",
+						"type": "varchar"
+					},
+					{
+						"name": "AIRLINE_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CARRIER",
+						"type": "varchar"
+					},
+					{
+						"name": "TAIL_NUM",
+						"type": "varchar"
+					},
+					{
+						"name": "FL_NUM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ORIGIN_AIRPORT_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ORIGIN_AIRPORT_SEQ_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ORIGIN_CITY_MARKET_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEST_AIRPORT_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEST_AIRPORT_SEQ_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEST_CITY_MARKET_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEP_TIME",
+						"type": "varchar"
+					},
+					{
+						"name": "DEP_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "DEP_DELAY_NEW",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "TAXI_OUT",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "WHEELS_OFF",
+						"type": "varchar"
+					},
+					{
+						"name": "WHEELS_ON",
+						"type": "varchar"
+					},
+					{
+						"name": "TAXI_IN",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "ARR_TIME",
+						"type": "varchar"
+					},
+					{
+						"name": "ARR_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "ARR_DELAY_NEW",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "CANCELLED",
+						"type": "bit"
+					},
+					{
+						"name": "CANCELLATION_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "ACTUAL_ELAPSED_TIME",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "AIR_TIME",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "FLIGHTS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DISTANCE",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CARRIER_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "WEATHER_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "NAS_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "SECURITY_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "LATE_AIRCRAFT_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "DEST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "ORIGIN_CODE",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[Staging].[FlightFact]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DW_Staging_Weather')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure DW DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "_id",
+						"type": "varchar"
+					},
+					{
+						"name": "weatherDate",
+						"type": "varchar"
+					},
+					{
+						"name": "weatherDateInt",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "airportCode",
+						"type": "varchar"
+					},
+					{
+						"name": "temperatureF",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[Staging].[Weather]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_dyl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "201612-WeatherData.txt",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "_id",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "dateint",
+						"type": "String"
+					},
+					{
+						"name": "airport",
+						"type": "String"
+					},
+					{
+						"name": "temp",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FAA_Merge')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "000000_0",
+						"folderPath": "FAAMerge",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "N_Number",
+						"type": "String"
+					},
+					{
+						"name": "Serial_Number",
+						"type": "String"
+					},
+					{
+						"name": "Year_MFR",
+						"type": "String"
+					},
+					{
+						"name": "MFR_Name",
+						"type": "String"
+					},
+					{
+						"name": "Model_Name",
+						"type": "String"
+					},
+					{
+						"name": "Number_Engines",
+						"type": "String"
+					},
+					{
+						"name": "Number_Seats",
+						"type": "String"
+					},
+					{
+						"name": "0",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ODS_Airline')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure ODS DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Code",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Airline_Code",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[dbo].[Airline]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure ODS DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ODS_Airport')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure ODS DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Code",
+						"type": "varchar"
+					},
+					{
+						"name": "City_Airport",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[dbo].[Airport]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure ODS DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ODS_Flight')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure ODS DB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "YEAR",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "MONTH",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "FL_DATE",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "UNIQUE_CARRIER",
+						"type": "varchar"
+					},
+					{
+						"name": "AIRLINE_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CARRIER",
+						"type": "varchar"
+					},
+					{
+						"name": "TAIL_NUM",
+						"type": "varchar"
+					},
+					{
+						"name": "FL_NUM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ORIGIN_AIRPORT_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ORIGIN_AIRPORT_SEQ_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ORIGIN_CITY_MARKET_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEST_AIRPORT_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEST_AIRPORT_SEQ_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEST_CITY_MARKET_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DEP_TIME",
+						"type": "varchar"
+					},
+					{
+						"name": "DEP_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "DEP_DELAY_NEW",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "TAXI_OUT",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "WHEELS_OFF",
+						"type": "varchar"
+					},
+					{
+						"name": "WHEELS_ON",
+						"type": "varchar"
+					},
+					{
+						"name": "TAXI_IN",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "ARR_TIME",
+						"type": "varchar"
+					},
+					{
+						"name": "ARR_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "ARR_DELAY_NEW",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "CANCELLED",
+						"type": "bit"
+					},
+					{
+						"name": "CANCELLATION_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "ACTUAL_ELAPSED_TIME",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "AIR_TIME",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "FLIGHTS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DISTANCE",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CARRIER_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "WEATHER_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "NAS_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "SECURITY_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "LATE_AIRCRAFT_DELAY",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "DEST_CODE",
+						"type": "varchar"
+					},
+					{
+						"name": "ORIGIN_CODE",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[dbo].[Flight]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure ODS DB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_dyl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HTTPWeather",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "HttpFile",
+				"structure": [
+					{
+						"name": "_id",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "dateint",
+						"type": "Int64"
+					},
+					{
+						"name": "airport",
+						"type": "String"
+					},
+					{
+						"name": "temp",
+						"type": "Int64"
+					}
+				],
+				"typeProperties": {
+					"format": {
+						"type": "JsonFormat",
+						"filePattern": "arrayOfObjects",
+						"jsonPathDefinition": {
+							"_id": "$.['_id']",
+							"date": "$.['date']",
+							"dateint": "$.['dateint']",
+							"airport": "$.['airport']",
+							"temp": "$.['temp']"
+						}
+					},
+					"requestMethod": "GET",
+					"additionalHeaders": "x-apikey: 5a31643dcb25c1076c7cd9ab\nContent-Type: application/json"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HTTPWeather')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weather')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "201612-WeatherData.txt",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "_id",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "dateint",
+						"type": "String"
+					},
+					{
+						"name": "airport",
+						"type": "String"
+					},
+					{
+						"name": "temp",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HDI_ADFLab')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HDInsightOnDemand",
+				"typeProperties": {
+					"clusterType": "hadoop",
+					"clusterSize": 4,
+					"timeToLive": "00:05:00",
+					"version": "3.6",
+					"hostSubscriptionId": "[parameters('HDI_ADFLab_properties_typeProperties_hostSubscriptionId')]",
+					"clusterResourceGroup": "[parameters('HDI_ADFLab_properties_typeProperties_clusterResourceGroup')]",
+					"servicePrincipalId": "[parameters('HDI_ADFLab_properties_typeProperties_servicePrincipalId')]",
+					"osType": "Linux",
+					"tenant": "[parameters('HDI_ADFLab_properties_typeProperties_tenant')]",
+					"clusterNamePrefix": "",
+					"clusterPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDI_ADFLab_clusterPassword')]"
+					},
+					"clusterSshUserName": "[parameters('HDI_ADFLab_properties_typeProperties_clusterSshUserName')]",
+					"clusterSshPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDI_ADFLab_clusterSshPassword')]"
+					},
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('HDI_ADFLab_servicePrincipalKey')]"
+					},
+					"linkedServiceName": {
+						"referenceName": "AzStorageStaging",
+						"type": "LinkedServiceReference"
+					},
+					"headNodeSize": "",
+					"dataNodeSize": "",
+					"zookeeperNodeSize": "",
+					"subnetName": "",
+					"virtualNetworkId": ""
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		}
+	]
+}
