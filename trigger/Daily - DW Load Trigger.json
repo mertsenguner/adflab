@@ -1,18 +1,9 @@
 {
 	"name": "Daily - DW Load Trigger",
 	"properties": {
+		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "Master - Begin DW Load",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"recipient": "mesengne@microsoft.com"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
