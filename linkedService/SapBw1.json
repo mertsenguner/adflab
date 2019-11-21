@@ -1,0 +1,19 @@
+{
+	"name": "SapBw1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SapBw",
+		"typeProperties": {
+			"server": "104.45.7.237",
+			"systemNumber": "00",
+			"clientId": "000",
+			"userName": "mesengne",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhZmIxMDM4OS1kMmJhLTRlZTktYjc4Ny03OTAzOGYwNTg5NDMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntimeSAP",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
