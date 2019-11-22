@@ -9,9 +9,9 @@
 			"language": "EN",
 			"sncMode": false,
 			"userName": "mesengne",
-			"server": "10.0.0.180",
+			"server": "10.0.0.182",
 			"systemNumber": "00",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyNTU2MzMwNy01MDEwLTRhNDEtYTM0ZS1iMDkwYmY4YzEzNDQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0YzNmYjIzMi0yMDU1LTRkMzQtOGE2Ny0zOTU0Yjk4NzMwMjAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "integrationRuntimeSAP",
