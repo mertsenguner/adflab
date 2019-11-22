@@ -9,7 +9,7 @@
 			"systemNumber": "00",
 			"clientId": "000",
 			"userName": "mesengne",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5ODJkNmIyOS1lZTk3LTQ1MmItYmY2ZS1jZWZhYmMwM2I1ZTAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiYmYwMzFmZS1lZmExLTQzYjgtYmE2ZC1hYTQ5ZGRiYjg0ODQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "integrationRuntimeSAP",
