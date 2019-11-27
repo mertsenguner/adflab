@@ -1,0 +1,6 @@
+{
+	"name": "integrationRuntimeSAPJump",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
