@@ -8,10 +8,10 @@
 			"clientId": "001",
 			"language": "EN",
 			"sncMode": false,
-			"userName": "mesengne",
+			"userName": "ddic",
 			"server": "10.0.0.22",
 			"systemNumber": "00",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3NTAzMDNiZC01MDUzLTQwYjAtOGJkNi1lMTI1NTBjNjg3MjkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0YzA4YzEwNi01ZjM0LTRjZDgtOTVjYy04ZDY2NDNiNWJhZDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "integrationRuntimeSAPJump",
