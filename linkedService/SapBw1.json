@@ -9,7 +9,7 @@
 			"systemNumber": "00",
 			"clientId": "000",
 			"userName": "mesengne",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjMGNjMWZiMi04NmQwLTQxZjEtOWFmNy1iNjZlNzI0ZWU0MDkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0NzBjMjc0Ni0zMWZmLTQ2MDktOWNmMC1lZjJiZmRlYTExNDciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "integrationRuntimeSAPJump",
