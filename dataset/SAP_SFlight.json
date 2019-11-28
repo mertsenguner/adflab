@@ -1,5 +1,5 @@
 {
-	"name": "SapTableResource2",
+	"name": "SAP_SFlight",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SapTable1",
