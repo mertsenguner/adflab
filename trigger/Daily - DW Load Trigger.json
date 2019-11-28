@@ -2,14 +2,14 @@
 	"name": "Daily - DW Load Trigger",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2019-06-25T18:31:00Z",
+				"startTime": "2019-06-25T18:31:00.000Z",
 				"timeZone": "UTC",
 				"schedule": {
 					"minutes": [
