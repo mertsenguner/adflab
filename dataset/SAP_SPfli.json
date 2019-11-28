@@ -1,0 +1,15 @@
+{
+	"name": "SAP_SPfli",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapTable1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "SPFLI"
+		}
+	}
+}
