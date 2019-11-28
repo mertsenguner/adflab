@@ -5,6 +5,10 @@
 			"referenceName": "HTTPWeather",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "E2E Scenario Data Sources"
+		},
+		"annotations": [],
 		"type": "HttpFile",
 		"structure": [
 			{

@@ -5,6 +5,10 @@
 			"referenceName": "Azure ODS DB",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "E2E Scenario Data Sources"
+		},
+		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
 			{

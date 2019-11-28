@@ -5,6 +5,9 @@
 			"referenceName": "SapTable1",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SAP Data Sources"
+		},
 		"annotations": [],
 		"type": "SapTableResource",
 		"schema": [],
