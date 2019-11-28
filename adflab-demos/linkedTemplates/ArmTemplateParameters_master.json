@@ -5,6 +5,12 @@
 		"factoryName": {
 			"value": "adflab-demos"
 		},
+		"integrationRuntime_integrationRuntimeSAP": {
+			"value": "integrationRuntimeSAP"
+		},
+		"integrationRuntime_integrationRuntimeSAPJump": {
+			"value": "integrationRuntimeSAPJump"
+		},
 		"AWS_S3_Source_connectionString": {
 			"value": ""
 		},
@@ -26,6 +32,12 @@
 		"HDI_ADFLab_servicePrincipalKey": {
 			"value": ""
 		},
+		"SapBw1_password": {
+			"value": ""
+		},
+		"SapTable1_password": {
+			"value": ""
+		},
 		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
 			"value": "3d876a73-ff5a-495d-a047-036b3c6846fa"
 		},
@@ -44,8 +56,29 @@
 		"HTTPWeather_properties_typeProperties_url": {
 			"value": "https://weather-b362.restdb.io/rest/random-weather-dec-2016"
 		},
-		"Daily - DW Load Trigger_properties_Master - Begin DW Load_parameters_recipient": {
-			"value": "mesengne@microsoft.com"
+		"SapBw1_properties_typeProperties_server": {
+			"value": "10.0.0.175"
+		},
+		"SapBw1_properties_typeProperties_systemNumber": {
+			"value": "00"
+		},
+		"SapBw1_properties_typeProperties_clientId": {
+			"value": "000"
+		},
+		"SapBw1_properties_typeProperties_userName": {
+			"value": "mesengne"
+		},
+		"SapTable1_properties_typeProperties_clientId": {
+			"value": "001"
+		},
+		"SapTable1_properties_typeProperties_userName": {
+			"value": "mesengne"
+		},
+		"SapTable1_properties_typeProperties_server": {
+			"value": "10.0.0.22"
+		},
+		"SapTable1_properties_typeProperties_systemNumber": {
+			"value": "00"
 		},
 		"containerUri": {
 			"value": ""

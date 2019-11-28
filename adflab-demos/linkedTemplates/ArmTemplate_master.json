@@ -4,8 +4,18 @@
 	"parameters": {
 		"factoryName": {
 			"type": "string",
-			"metadata": "Data Factory Name",
+			"metadata": "Data Factory name",
 			"defaultValue": "adflab-demos"
+		},
+		"integrationRuntime_integrationRuntimeSAP": {
+			"type": "string",
+			"metadata": "Integration runtime name",
+			"defaultValue": "integrationRuntimeSAP"
+		},
+		"integrationRuntime_integrationRuntimeSAPJump": {
+			"type": "string",
+			"metadata": "Integration runtime name",
+			"defaultValue": "integrationRuntimeSAPJump"
 		},
 		"AWS_S3_Source_connectionString": {
 			"type": "secureString",
@@ -35,6 +45,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'HDI_ADFLab'"
 		},
+		"SapBw1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapBw1'"
+		},
+		"SapTable1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapTable1'"
+		},
 		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
 			"type": "string",
 			"defaultValue": "3d876a73-ff5a-495d-a047-036b3c6846fa"
@@ -59,9 +77,37 @@
 			"type": "string",
 			"defaultValue": "https://weather-b362.restdb.io/rest/random-weather-dec-2016"
 		},
-		"Daily - DW Load Trigger_properties_Master - Begin DW Load_parameters_recipient": {
+		"SapBw1_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "mesengne@microsoft.com"
+			"defaultValue": "10.0.0.175"
+		},
+		"SapBw1_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"SapBw1_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "000"
+		},
+		"SapBw1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "mesengne"
+		},
+		"SapTable1_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "001"
+		},
+		"SapTable1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "mesengne"
+		},
+		"SapTable1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "10.0.0.22"
+		},
+		"SapTable1_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
 		},
 		"containerUri": {
 			"type": "string",
@@ -69,7 +115,7 @@
 		},
 		"containerSasToken": {
 			"type": "string",
-			"metadata": "Sas Token to storage account containing linked ARM templates"
+			"metadata": "Sas token to storage account containing linked ARM templates"
 		}
 	},
 	"variables": {
@@ -90,6 +136,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"integrationRuntime_integrationRuntimeSAP": {
+						"value": "[parameters('integrationRuntime_integrationRuntimeSAP')]"
+					},
+					"integrationRuntime_integrationRuntimeSAPJump": {
+						"value": "[parameters('integrationRuntime_integrationRuntimeSAPJump')]"
+					},
 					"AWS_S3_Source_connectionString": {
 						"value": "[parameters('AWS_S3_Source_connectionString')]"
 					},
@@ -102,32 +154,8 @@
 					"Azure ODS DB_connectionString": {
 						"value": "[parameters('Azure ODS DB_connectionString')]"
 					},
-					"HDI_ADFLab_clusterPassword": {
-						"value": "[parameters('HDI_ADFLab_clusterPassword')]"
-					},
-					"HDI_ADFLab_clusterSshPassword": {
-						"value": "[parameters('HDI_ADFLab_clusterSshPassword')]"
-					},
-					"HDI_ADFLab_servicePrincipalKey": {
-						"value": "[parameters('HDI_ADFLab_servicePrincipalKey')]"
-					},
 					"HTTPWeather_properties_typeProperties_url": {
 						"value": "[parameters('HTTPWeather_properties_typeProperties_url')]"
-					},
-					"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
-						"value": "[parameters('HDI_ADFLab_properties_typeProperties_hostSubscriptionId')]"
-					},
-					"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
-						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterResourceGroup')]"
-					},
-					"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
-						"value": "[parameters('HDI_ADFLab_properties_typeProperties_servicePrincipalId')]"
-					},
-					"HDI_ADFLab_properties_typeProperties_tenant": {
-						"value": "[parameters('HDI_ADFLab_properties_typeProperties_tenant')]"
-					},
-					"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
-						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterSshUserName')]"
 					}
 				}
 			},
@@ -147,8 +175,59 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"Daily - DW Load Trigger_properties_Master - Begin DW Load_parameters_recipient": {
-						"value": "[parameters('Daily - DW Load Trigger_properties_Master - Begin DW Load_parameters_recipient')]"
+					"HDI_ADFLab_clusterPassword": {
+						"value": "[parameters('HDI_ADFLab_clusterPassword')]"
+					},
+					"HDI_ADFLab_clusterSshPassword": {
+						"value": "[parameters('HDI_ADFLab_clusterSshPassword')]"
+					},
+					"HDI_ADFLab_servicePrincipalKey": {
+						"value": "[parameters('HDI_ADFLab_servicePrincipalKey')]"
+					},
+					"SapBw1_password": {
+						"value": "[parameters('SapBw1_password')]"
+					},
+					"SapTable1_password": {
+						"value": "[parameters('SapTable1_password')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_hostSubscriptionId')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterResourceGroup')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_servicePrincipalId')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_tenant": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_tenant')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterSshUserName')]"
+					},
+					"SapBw1_properties_typeProperties_server": {
+						"value": "[parameters('SapBw1_properties_typeProperties_server')]"
+					},
+					"SapBw1_properties_typeProperties_systemNumber": {
+						"value": "[parameters('SapBw1_properties_typeProperties_systemNumber')]"
+					},
+					"SapBw1_properties_typeProperties_clientId": {
+						"value": "[parameters('SapBw1_properties_typeProperties_clientId')]"
+					},
+					"SapBw1_properties_typeProperties_userName": {
+						"value": "[parameters('SapBw1_properties_typeProperties_userName')]"
+					},
+					"SapTable1_properties_typeProperties_clientId": {
+						"value": "[parameters('SapTable1_properties_typeProperties_clientId')]"
+					},
+					"SapTable1_properties_typeProperties_userName": {
+						"value": "[parameters('SapTable1_properties_typeProperties_userName')]"
+					},
+					"SapTable1_properties_typeProperties_server": {
+						"value": "[parameters('SapTable1_properties_typeProperties_server')]"
+					},
+					"SapTable1_properties_typeProperties_systemNumber": {
+						"value": "[parameters('SapTable1_properties_typeProperties_systemNumber')]"
 					}
 				}
 			},
