@@ -34,13 +34,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SapTableResource1",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DelimitedTextFromSAP",
+						"referenceName": "SAP_SBook",
 						"type": "DatasetReference"
 					}
 				]
