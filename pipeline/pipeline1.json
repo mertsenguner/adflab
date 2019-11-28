@@ -48,7 +48,7 @@
 				]
 			},
 			{
-				"name": "Merge & Denormalize SAP",
+				"name": "Merge-Denormalize SAP Data",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
