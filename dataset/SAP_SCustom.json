@@ -1,5 +1,5 @@
 {
-	"name": "SapTableResource2",
+	"name": "SAP_SCustom",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SapTable1",
@@ -9,7 +9,7 @@
 		"type": "SapTableResource",
 		"schema": [],
 		"typeProperties": {
-			"tableName": "SFLIGHT"
+			"tableName": "SCUSTOM"
 		}
 	}
 }
