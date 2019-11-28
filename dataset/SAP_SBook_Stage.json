@@ -5,6 +5,9 @@
 			"referenceName": "AzStorageStaging",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SAP Scenario Data Sources"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
