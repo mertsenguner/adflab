@@ -5,6 +5,7 @@
 			{
 				"name": "Copy_dyl",
 				"type": "Copy",
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -26,11 +27,11 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSetting",
+							"type": "AzureBlobStorageWriteSettings",
 							"copyBehavior": "MergeFiles"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSetting",
+							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
 							"fileExtension": ".txt"
 						}
@@ -50,7 +51,11 @@
 					}
 				]
 			}
-		]
+		],
+		"folder": {
+			"name": "E2E Sample"
+		},
+		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

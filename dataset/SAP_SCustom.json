@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "SAP Data Sources"
+			"name": "SAP Scenario Data Sources"
 		},
 		"annotations": [],
 		"type": "SapTableResource",

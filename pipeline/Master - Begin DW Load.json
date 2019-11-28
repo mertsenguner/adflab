@@ -86,20 +86,20 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSetting",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSetting"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSetting"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSetting",
+							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
 							"fileExtension": ".txt"
 						}
@@ -490,6 +490,9 @@
 				"type": "string",
 				"defaultValue": "mesengne@microsoft.com"
 			}
+		},
+		"folder": {
+			"name": "E2E Sample"
 		},
 		"annotations": []
 	},

@@ -632,11 +632,11 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSetting",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSetting"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -768,11 +768,11 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSetting",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSetting"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -940,6 +940,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "E2E Sample"
+		},
 		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
