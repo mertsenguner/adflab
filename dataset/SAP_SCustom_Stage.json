@@ -1,0 +1,21 @@
+{
+	"name": "SAP_SCustom_Stage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzStorageStaging",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "sapdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
