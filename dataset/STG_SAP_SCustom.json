@@ -20,6 +20,71 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "String"
+			},
+			{
+				"name": "ID",
+				"type": "String"
+			},
+			{
+				"name": "NAME",
+				"type": "String"
+			},
+			{
+				"name": "FORM",
+				"type": "String"
+			},
+			{
+				"name": "STREET",
+				"type": "String"
+			},
+			{
+				"name": "POSTBOX",
+				"type": "String"
+			},
+			{
+				"name": "POSTCODE",
+				"type": "String"
+			},
+			{
+				"name": "CITY",
+				"type": "String"
+			},
+			{
+				"name": "COUNTRY",
+				"type": "String"
+			},
+			{
+				"name": "REGION",
+				"type": "String"
+			},
+			{
+				"name": "TELEPHONE",
+				"type": "String"
+			},
+			{
+				"name": "CUSTTYPE",
+				"type": "String"
+			},
+			{
+				"name": "DISCOUNT",
+				"type": "String"
+			},
+			{
+				"name": "LANGU",
+				"type": "String"
+			},
+			{
+				"name": "EMAIL",
+				"type": "String"
+			},
+			{
+				"name": "WEBUSER",
+				"type": "String"
+			}
+		]
 	}
 }

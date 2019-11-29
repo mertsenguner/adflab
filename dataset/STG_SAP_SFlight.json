@@ -20,6 +20,63 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "String"
+			},
+			{
+				"name": "CARRID",
+				"type": "String"
+			},
+			{
+				"name": "CONNID",
+				"type": "String"
+			},
+			{
+				"name": "FLDATE",
+				"type": "String"
+			},
+			{
+				"name": "PRICE",
+				"type": "String"
+			},
+			{
+				"name": "CURRENCY",
+				"type": "String"
+			},
+			{
+				"name": "PLANETYPE",
+				"type": "String"
+			},
+			{
+				"name": "SEATSMAX",
+				"type": "String"
+			},
+			{
+				"name": "SEATSOCC",
+				"type": "String"
+			},
+			{
+				"name": "PAYMENTSUM",
+				"type": "String"
+			},
+			{
+				"name": "SEATSMAX_B",
+				"type": "String"
+			},
+			{
+				"name": "SEATSOCC_B",
+				"type": "String"
+			},
+			{
+				"name": "SEATSMAX_F",
+				"type": "String"
+			},
+			{
+				"name": "SEATSOCC_F",
+				"type": "String"
+			}
+		]
 	}
 }
