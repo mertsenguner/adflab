@@ -36,7 +36,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SAP_SFlight",
+						"referenceName": "SAP_SBook",
 						"type": "DatasetReference"
 					}
 				],
@@ -59,6 +59,12 @@
 					},
 					{
 						"activity": "Copy Customer Data from SAP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy Flight Data from SAP",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -120,6 +126,51 @@
 				"outputs": [
 					{
 						"referenceName": "STG_SAP_SCustom",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy Flight Data from SAP",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"rfcTableOptions": "",
+						"customRfcReadTableFunctionModule": "",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_SFlight",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "STG_SAP_SFlight",
 						"type": "DatasetReference"
 					}
 				]
