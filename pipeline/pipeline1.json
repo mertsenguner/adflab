@@ -24,7 +24,8 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobStorageWriteSettings",
+							"maxConcurrentConnections": 1
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -32,7 +33,252 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CARRID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CARRID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CONNID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CONNID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FLDATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FLDATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BOOKID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BOOKID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CUSTOMID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CUSTOMID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CUSTTYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CUSTTYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SMOKER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SMOKER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LUGGWEIGHT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "LUGGWEIGHT",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "WUNIT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WUNIT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "INVOICE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "INVOICE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLASS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLASS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FORCURAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "FORCURAM",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "FORCURKEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FORCURKEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCCURAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "LOCCURAM",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCCURKEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LOCCURKEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ORDER_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORDER_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COUNTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COUNTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AGENCYNUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AGENCYNUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CANCELLED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CANCELLED",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RESERVED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RESERVED",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PASSNAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PASSNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PASSFORM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PASSFORM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PASSBIRTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PASSBIRTH",
+									"type": "String"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
