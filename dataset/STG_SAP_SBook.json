@@ -20,6 +20,103 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "String"
+			},
+			{
+				"name": "CARRID",
+				"type": "String"
+			},
+			{
+				"name": "CONNID",
+				"type": "String"
+			},
+			{
+				"name": "FLDATE",
+				"type": "String"
+			},
+			{
+				"name": "BOOKID",
+				"type": "String"
+			},
+			{
+				"name": "CUSTOMID",
+				"type": "String"
+			},
+			{
+				"name": "CUSTTYPE",
+				"type": "String"
+			},
+			{
+				"name": "SMOKER",
+				"type": "String"
+			},
+			{
+				"name": "LUGGWEIGHT",
+				"type": "String"
+			},
+			{
+				"name": "WUNIT",
+				"type": "String"
+			},
+			{
+				"name": "INVOICE",
+				"type": "String"
+			},
+			{
+				"name": "CLASS",
+				"type": "String"
+			},
+			{
+				"name": "FORCURAM",
+				"type": "String"
+			},
+			{
+				"name": "FORCURKEY",
+				"type": "String"
+			},
+			{
+				"name": "LOCCURAM",
+				"type": "String"
+			},
+			{
+				"name": "LOCCURKEY",
+				"type": "String"
+			},
+			{
+				"name": "ORDER_DATE",
+				"type": "String"
+			},
+			{
+				"name": "COUNTER",
+				"type": "String"
+			},
+			{
+				"name": "AGENCYNUM",
+				"type": "String"
+			},
+			{
+				"name": "CANCELLED",
+				"type": "String"
+			},
+			{
+				"name": "RESERVED",
+				"type": "String"
+			},
+			{
+				"name": "PASSNAME",
+				"type": "String"
+			},
+			{
+				"name": "PASSFORM",
+				"type": "String"
+			},
+			{
+				"name": "PASSBIRTH",
+				"type": "String"
+			}
+		]
 	}
 }

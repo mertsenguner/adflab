@@ -9,12 +9,30 @@
 						"referenceName": "STG_SAP_SBook",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "Booking"
+				},
+				{
+					"dataset": {
+						"referenceName": "STG_SAP_SCustom",
+						"type": "DatasetReference"
+					},
+					"name": "Customer"
+				},
+				{
+					"dataset": {
+						"referenceName": "STG_SAP_SFlight",
+						"type": "DatasetReference"
+					},
+					"name": "Flight"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
-			"script": "\n\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1"
+			"transformations": [
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "\n\nsource(output(\n\t\tMANDT as string,\n\t\tCARRID as string,\n\t\tCONNID as string,\n\t\tFLDATE as string,\n\t\tBOOKID as string,\n\t\tCUSTOMID as string,\n\t\tCUSTTYPE as string,\n\t\tSMOKER as string,\n\t\tLUGGWEIGHT as string,\n\t\tWUNIT as string,\n\t\tINVOICE as string,\n\t\tCLASS as string,\n\t\tFORCURAM as string,\n\t\tFORCURKEY as string,\n\t\tLOCCURAM as string,\n\t\tLOCCURKEY as string,\n\t\tORDER_DATE as string,\n\t\tCOUNTER as string,\n\t\tAGENCYNUM as string,\n\t\tCANCELLED as string,\n\t\tRESERVED as string,\n\t\tPASSNAME as string,\n\t\tPASSFORM as string,\n\t\tPASSBIRTH as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Booking\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> Customer\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> Flight\nBooking, Flight join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tjoinType:'inner',\n\tbroadcast: 'none')~> Join1"
 		}
 	}
 }
