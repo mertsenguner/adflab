@@ -1,5 +1,5 @@
 {
-	"name": "SAP_SBook_Stage",
+	"name": "STG_SAP_SBook",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzStorageStaging",

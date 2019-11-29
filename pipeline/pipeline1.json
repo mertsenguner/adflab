@@ -42,7 +42,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SAP_SBook_Stage",
+						"referenceName": "STG_SAP_SBook",
 						"type": "DatasetReference"
 					}
 				]
@@ -119,7 +119,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SAP_SCustom_Stage",
+						"referenceName": "STG_SAP_SCustom",
 						"type": "DatasetReference"
 					}
 				]

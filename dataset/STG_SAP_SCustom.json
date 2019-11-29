@@ -1,9 +1,12 @@
 {
-	"name": "SAP_SCustom_Stage",
+	"name": "STG_SAP_SCustom",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzStorageStaging",
 			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP Scenario Data Sources"
 		},
 		"annotations": [],
 		"type": "DelimitedText",

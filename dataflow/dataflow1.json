@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "SAP_SBook_Stage",
+						"referenceName": "STG_SAP_SBook",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
