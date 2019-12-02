@@ -16,7 +16,9 @@
 				"container": "sapdata"
 			},
 			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
 			"escapeChar": "\\",
+			"firstRowAsHeader": false,
 			"quoteChar": "\""
 		},
 		"schema": []
