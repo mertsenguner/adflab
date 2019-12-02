@@ -361,7 +361,172 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FORM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FORM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "STREET",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STREET",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "POSTBOX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "POSTBOX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "POSTCODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "POSTCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COUNTRY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REGION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "REGION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TELEPHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TELEPHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CUSTTYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CUSTTYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DISCOUNT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DISCOUNT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LANGU",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LANGU",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EMAIL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WEBUSER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WEBUSER",
+									"type": "String"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
@@ -406,7 +571,152 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CARRID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CARRID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CONNID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CONNID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FLDATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FLDATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRICE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRICE",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENCY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CURRENCY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PLANETYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PLANETYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SEATSMAX",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "SEATSMAX",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "SEATSOCC",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "SEATSOCC",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "PAYMENTSUM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PAYMENTSUM",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "SEATSMAX_B",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "SEATSMAX_B",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "SEATSOCC_B",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "SEATSOCC_B",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "SEATSMAX_F",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "SEATSMAX_F",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "SEATSOCC_F",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "SEATSOCC_F",
+									"type": "Int32"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
