@@ -158,6 +158,471 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/1_SRC_AWS_SFlight')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AWS_S3_Source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "SFLIGHT.txt",
+						"container": "adf-sample-files"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "String"
+					},
+					{
+						"name": "CARRID",
+						"type": "String"
+					},
+					{
+						"name": "CONNID",
+						"type": "String"
+					},
+					{
+						"name": "FLDATE",
+						"type": "String"
+					},
+					{
+						"name": "PRICE",
+						"type": "String"
+					},
+					{
+						"name": "CURRENCY",
+						"type": "String"
+					},
+					{
+						"name": "PLANETYPE",
+						"type": "String"
+					},
+					{
+						"name": "SEATSMAX",
+						"type": "String"
+					},
+					{
+						"name": "SEATSOCC",
+						"type": "String"
+					},
+					{
+						"name": "PAYMENTSUM",
+						"type": "String"
+					},
+					{
+						"name": "SEATSMAX_B",
+						"type": "String"
+					},
+					{
+						"name": "SEATSOCC_B",
+						"type": "String"
+					},
+					{
+						"name": "SEATSMAX_F",
+						"type": "String"
+					},
+					{
+						"name": "SEATSOCC_F",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AWS_S3_Source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/2_STG_SBook')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "SBOOK.txt",
+						"folderPath": "STG_Booking",
+						"container": "sapdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "String"
+					},
+					{
+						"name": "CARRID",
+						"type": "String"
+					},
+					{
+						"name": "CONNID",
+						"type": "String"
+					},
+					{
+						"name": "FLDATE",
+						"type": "String"
+					},
+					{
+						"name": "BOOKID",
+						"type": "String"
+					},
+					{
+						"name": "CUSTOMID",
+						"type": "String"
+					},
+					{
+						"name": "CUSTTYPE",
+						"type": "String"
+					},
+					{
+						"name": "SMOKER",
+						"type": "String"
+					},
+					{
+						"name": "LUGGWEIGHT",
+						"type": "String"
+					},
+					{
+						"name": "WUNIT",
+						"type": "String"
+					},
+					{
+						"name": "INVOICE",
+						"type": "String"
+					},
+					{
+						"name": "CLASS",
+						"type": "String"
+					},
+					{
+						"name": "FORCURAM",
+						"type": "String"
+					},
+					{
+						"name": "FORCURKEY",
+						"type": "String"
+					},
+					{
+						"name": "LOCCURAM",
+						"type": "String"
+					},
+					{
+						"name": "LOCCURKEY",
+						"type": "String"
+					},
+					{
+						"name": "ORDER_DATE",
+						"type": "String"
+					},
+					{
+						"name": "COUNTER",
+						"type": "String"
+					},
+					{
+						"name": "AGENCYNUM",
+						"type": "String"
+					},
+					{
+						"name": "CANCELLED",
+						"type": "String"
+					},
+					{
+						"name": "RESERVED",
+						"type": "String"
+					},
+					{
+						"name": "PASSNAME",
+						"type": "String"
+					},
+					{
+						"name": "PASSFORM",
+						"type": "String"
+					},
+					{
+						"name": "PASSBIRTH",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/2_STG_SCustom')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "SCUSTOM.txt",
+						"folderPath": "STG_Customer",
+						"container": "sapdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "String"
+					},
+					{
+						"name": "ID",
+						"type": "String"
+					},
+					{
+						"name": "NAME",
+						"type": "String"
+					},
+					{
+						"name": "FORM",
+						"type": "String"
+					},
+					{
+						"name": "STREET",
+						"type": "String"
+					},
+					{
+						"name": "POSTBOX",
+						"type": "String"
+					},
+					{
+						"name": "POSTCODE",
+						"type": "String"
+					},
+					{
+						"name": "CITY",
+						"type": "String"
+					},
+					{
+						"name": "COUNTRY",
+						"type": "String"
+					},
+					{
+						"name": "REGION",
+						"type": "String"
+					},
+					{
+						"name": "TELEPHONE",
+						"type": "String"
+					},
+					{
+						"name": "CUSTTYPE",
+						"type": "String"
+					},
+					{
+						"name": "DISCOUNT",
+						"type": "String"
+					},
+					{
+						"name": "LANGU",
+						"type": "String"
+					},
+					{
+						"name": "EMAIL",
+						"type": "String"
+					},
+					{
+						"name": "WEBUSER",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/2_STG_SFlight')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "SFLIGHT.txt",
+						"folderPath": "STG_Flight",
+						"container": "sapdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "String"
+					},
+					{
+						"name": "CARRID",
+						"type": "String"
+					},
+					{
+						"name": "CONNID",
+						"type": "String"
+					},
+					{
+						"name": "FLDATE",
+						"type": "String"
+					},
+					{
+						"name": "PRICE",
+						"type": "String"
+					},
+					{
+						"name": "CURRENCY",
+						"type": "String"
+					},
+					{
+						"name": "PLANETYPE",
+						"type": "String"
+					},
+					{
+						"name": "SEATSMAX",
+						"type": "String"
+					},
+					{
+						"name": "SEATSOCC",
+						"type": "String"
+					},
+					{
+						"name": "PAYMENTSUM",
+						"type": "String"
+					},
+					{
+						"name": "SEATSMAX_B",
+						"type": "String"
+					},
+					{
+						"name": "SEATSOCC_B",
+						"type": "String"
+					},
+					{
+						"name": "SEATSMAX_F",
+						"type": "String"
+					},
+					{
+						"name": "SEATSOCC_F",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/3_RSLT_DenormalizedDatamartCsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "RESULT_DataSet",
+						"container": "sapdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/3_RSLT_IncomeByCity')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "RESULT_DataSet",
+						"container": "sapdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AWS_S3_Source_Data_FAA')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -495,35 +960,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BOOK_CUSTOMER')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzStorageStaging",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SAP Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sapdata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DW_Staging_Aircraft')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -837,235 +1273,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DW_Staging_Weather')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Azure DW DB",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "E2E Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [
-					{
-						"name": "_id",
-						"type": "varchar"
-					},
-					{
-						"name": "weatherDate",
-						"type": "varchar"
-					},
-					{
-						"name": "weatherDateInt",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "airportCode",
-						"type": "varchar"
-					},
-					{
-						"name": "temperatureF",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"tableName": "[[Staging].[Weather]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure DW DB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AWS_S3_Source",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "E2E Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "adf-sample-files"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AWS_S3_Source')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_dyl')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzStorageStaging",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "E2E Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "201612-WeatherData.txt",
-						"container": "input"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "_id",
-						"type": "String"
-					},
-					{
-						"name": "date",
-						"type": "String"
-					},
-					{
-						"name": "dateint",
-						"type": "String"
-					},
-					{
-						"name": "airport",
-						"type": "String"
-					},
-					{
-						"name": "temp",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/FAA_Merge')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzStorageStaging",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "E2E Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "000000_0",
-						"folderPath": "FAAMerge",
-						"container": "output"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "N_Number",
-						"type": "String"
-					},
-					{
-						"name": "Serial_Number",
-						"type": "String"
-					},
-					{
-						"name": "Year_MFR",
-						"type": "String"
-					},
-					{
-						"name": "MFR_Name",
-						"type": "String"
-					},
-					{
-						"name": "Model_Name",
-						"type": "String"
-					},
-					{
-						"name": "Number_Engines",
-						"type": "String"
-					},
-					{
-						"name": "Number_Seats",
-						"type": "String"
-					},
-					{
-						"name": "0",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ODS_Airline')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Azure ODS DB",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "E2E Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Code",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Airline_Code",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"tableName": "[[dbo].[Airline]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure ODS DB')]"
 			]
 		}
 	]

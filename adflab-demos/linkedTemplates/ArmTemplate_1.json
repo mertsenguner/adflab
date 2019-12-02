@@ -85,6 +85,225 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/DW_Staging_Weather')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure DW DB",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "E2E Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "_id",
+						"type": "varchar"
+					},
+					{
+						"name": "weatherDate",
+						"type": "varchar"
+					},
+					{
+						"name": "weatherDateInt",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "airportCode",
+						"type": "varchar"
+					},
+					{
+						"name": "temperatureF",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[Staging].[Weather]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AWS_S3_Source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "E2E Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "adf-sample-files"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_dyl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "E2E Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "201612-WeatherData.txt",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "_id",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "dateint",
+						"type": "String"
+					},
+					{
+						"name": "airport",
+						"type": "String"
+					},
+					{
+						"name": "temp",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FAA_Merge')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "E2E Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "000000_0",
+						"folderPath": "FAAMerge",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "N_Number",
+						"type": "String"
+					},
+					{
+						"name": "Serial_Number",
+						"type": "String"
+					},
+					{
+						"name": "Year_MFR",
+						"type": "String"
+					},
+					{
+						"name": "MFR_Name",
+						"type": "String"
+					},
+					{
+						"name": "Model_Name",
+						"type": "String"
+					},
+					{
+						"name": "Number_Engines",
+						"type": "String"
+					},
+					{
+						"name": "Number_Seats",
+						"type": "String"
+					},
+					{
+						"name": "0",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ODS_Airline')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure ODS DB",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "E2E Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Code",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Airline_Code",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[dbo].[Airline]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ODS_Airport')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -308,315 +527,6 @@
 				"typeProperties": {
 					"tableName": "[[dbo].[Flight]"
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/STG_SAP_SBook')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzStorageStaging",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SAP Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "SBOOK.txt",
-						"folderPath": "STG_Booking",
-						"container": "sapdata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "MANDT",
-						"type": "String"
-					},
-					{
-						"name": "CARRID",
-						"type": "String"
-					},
-					{
-						"name": "CONNID",
-						"type": "String"
-					},
-					{
-						"name": "FLDATE",
-						"type": "String"
-					},
-					{
-						"name": "BOOKID",
-						"type": "String"
-					},
-					{
-						"name": "CUSTOMID",
-						"type": "String"
-					},
-					{
-						"name": "CUSTTYPE",
-						"type": "String"
-					},
-					{
-						"name": "SMOKER",
-						"type": "String"
-					},
-					{
-						"name": "LUGGWEIGHT",
-						"type": "String"
-					},
-					{
-						"name": "WUNIT",
-						"type": "String"
-					},
-					{
-						"name": "INVOICE",
-						"type": "String"
-					},
-					{
-						"name": "CLASS",
-						"type": "String"
-					},
-					{
-						"name": "FORCURAM",
-						"type": "String"
-					},
-					{
-						"name": "FORCURKEY",
-						"type": "String"
-					},
-					{
-						"name": "LOCCURAM",
-						"type": "String"
-					},
-					{
-						"name": "LOCCURKEY",
-						"type": "String"
-					},
-					{
-						"name": "ORDER_DATE",
-						"type": "String"
-					},
-					{
-						"name": "COUNTER",
-						"type": "String"
-					},
-					{
-						"name": "AGENCYNUM",
-						"type": "String"
-					},
-					{
-						"name": "CANCELLED",
-						"type": "String"
-					},
-					{
-						"name": "RESERVED",
-						"type": "String"
-					},
-					{
-						"name": "PASSNAME",
-						"type": "String"
-					},
-					{
-						"name": "PASSFORM",
-						"type": "String"
-					},
-					{
-						"name": "PASSBIRTH",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/STG_SAP_SCustom')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzStorageStaging",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SAP Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "SCUSTOM.txt",
-						"folderPath": "STG_Customer",
-						"container": "sapdata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "MANDT",
-						"type": "String"
-					},
-					{
-						"name": "ID",
-						"type": "String"
-					},
-					{
-						"name": "NAME",
-						"type": "String"
-					},
-					{
-						"name": "FORM",
-						"type": "String"
-					},
-					{
-						"name": "STREET",
-						"type": "String"
-					},
-					{
-						"name": "POSTBOX",
-						"type": "String"
-					},
-					{
-						"name": "POSTCODE",
-						"type": "String"
-					},
-					{
-						"name": "CITY",
-						"type": "String"
-					},
-					{
-						"name": "COUNTRY",
-						"type": "String"
-					},
-					{
-						"name": "REGION",
-						"type": "String"
-					},
-					{
-						"name": "TELEPHONE",
-						"type": "String"
-					},
-					{
-						"name": "CUSTTYPE",
-						"type": "String"
-					},
-					{
-						"name": "DISCOUNT",
-						"type": "String"
-					},
-					{
-						"name": "LANGU",
-						"type": "String"
-					},
-					{
-						"name": "EMAIL",
-						"type": "String"
-					},
-					{
-						"name": "WEBUSER",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/STG_SAP_SFlight')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzStorageStaging",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SAP Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "SFLIGHT.txt",
-						"folderPath": "STG_Flight",
-						"container": "sapdata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "MANDT",
-						"type": "String"
-					},
-					{
-						"name": "CARRID",
-						"type": "String"
-					},
-					{
-						"name": "CONNID",
-						"type": "String"
-					},
-					{
-						"name": "FLDATE",
-						"type": "String"
-					},
-					{
-						"name": "PRICE",
-						"type": "String"
-					},
-					{
-						"name": "CURRENCY",
-						"type": "String"
-					},
-					{
-						"name": "PLANETYPE",
-						"type": "String"
-					},
-					{
-						"name": "SEATSMAX",
-						"type": "String"
-					},
-					{
-						"name": "SEATSOCC",
-						"type": "String"
-					},
-					{
-						"name": "PAYMENTSUM",
-						"type": "String"
-					},
-					{
-						"name": "SEATSMAX_B",
-						"type": "String"
-					},
-					{
-						"name": "SEATSOCC_B",
-						"type": "String"
-					},
-					{
-						"name": "SEATSMAX_F",
-						"type": "String"
-					},
-					{
-						"name": "SEATSOCC_F",
-						"type": "String"
-					}
-				]
 			},
 			"dependsOn": []
 		},
@@ -1778,9 +1688,12 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ODS_Airline')]",
 				"[concat(variables('factoryId'), '/datasets/ODS_Airport')]",
 				"[concat(variables('factoryId'), '/datasets/ODS_Flight')]",
-				"[concat(variables('factoryId'), '/datasets/Weather')]"
+				"[concat(variables('factoryId'), '/datasets/FAA_Merge')]",
+				"[concat(variables('factoryId'), '/datasets/Weather')]",
+				"[concat(variables('factoryId'), '/datasets/DW_Staging_Weather')]"
 			]
 		},
 		{
@@ -1887,11 +1800,12 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_dyl')]"
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_dyl')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_dyl')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SAP_SBook')]",
+			"name": "[concat(parameters('factoryName'), '/1_SRC_SAP_SBook')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1914,7 +1828,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SAP_SCustom')]",
+			"name": "[concat(parameters('factoryName'), '/1_SRC_SAP_SCustom')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1937,52 +1851,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SAP_SFlight')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SapTable1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SAP Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "SapTableResource",
-				"schema": [],
-				"typeProperties": {
-					"tableName": "SFLIGHT"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SapTable1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SAP_SPfli')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SapTable1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SAP Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "SapTableResource",
-				"schema": [],
-				"typeProperties": {
-					"tableName": "SPFLI"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SapTable1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1992,7 +1860,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "STG_SAP_SBook",
+								"referenceName": "2_STG_SBook",
 								"type": "DatasetReference"
 							},
 							"name": "Booking",
@@ -2000,7 +1868,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "STG_SAP_SCustom",
+								"referenceName": "2_STG_SCustom",
 								"type": "DatasetReference"
 							},
 							"name": "Customer",
@@ -2008,7 +1876,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "STG_SAP_SFlight",
+								"referenceName": "2_STG_SFlight",
 								"type": "DatasetReference"
 							},
 							"name": "Flight",
@@ -2018,27 +1886,808 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "BOOK_CUSTOMER",
+								"referenceName": "3_RSLT_IncomeByCity",
 								"type": "DatasetReference"
 							},
-							"name": "sink1"
+							"name": "IncomeByCity"
+						},
+						{
+							"dataset": {
+								"referenceName": "3_RSLT_DenormalizedDatamartCsv",
+								"type": "DatasetReference"
+							},
+							"name": "DenormalizedDataAsCSV"
 						}
 					],
 					"transformations": [
 						{
-							"name": "Join1"
+							"name": "JoinCustomerNBooking"
 						},
 						{
-							"name": "Select1"
+							"name": "Aggregate1"
+						},
+						{
+							"name": "JoinFlightNBooking"
+						},
+						{
+							"name": "JoinAll"
+						},
+						{
+							"name": "OccupiedMoreThan300"
+						},
+						{
+							"name": "RemoveDuplicatedColumns"
 						}
 					],
-					"script": "\n\nsource(output(\n\t\tMANDT as string,\n\t\tCARRID as string,\n\t\tCONNID as string,\n\t\tFLDATE as string,\n\t\tBOOKID as string,\n\t\tCUSTOMID as string,\n\t\tCUSTTYPE as string,\n\t\tSMOKER as string,\n\t\tLUGGWEIGHT as string,\n\t\tWUNIT as string,\n\t\tINVOICE as string,\n\t\tCLASS as string,\n\t\tFORCURAM as string,\n\t\tFORCURKEY as string,\n\t\tLOCCURAM as string,\n\t\tLOCCURKEY as string,\n\t\tORDER_DATE as string,\n\t\tCOUNTER as string,\n\t\tAGENCYNUM as string,\n\t\tCANCELLED as string,\n\t\tRESERVED as string,\n\t\tPASSNAME as string,\n\t\tPASSFORM as string,\n\t\tPASSBIRTH as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Booking\nsource(output(\n\t\tMANDT as string,\n\t\tID as string,\n\t\tNAME as string,\n\t\tFORM as string,\n\t\tSTREET as string,\n\t\tPOSTBOX as string,\n\t\tPOSTCODE as string,\n\t\tCITY as string,\n\t\tCOUNTRY as string,\n\t\tREGION as string,\n\t\tTELEPHONE as string,\n\t\tCUSTTYPE as string,\n\t\tDISCOUNT as string,\n\t\tLANGU as string,\n\t\tEMAIL as string,\n\t\tWEBUSER as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Customer\nsource(output(\n\t\tMANDT as string,\n\t\tCARRID as string,\n\t\tCONNID as string,\n\t\tFLDATE as string,\n\t\tPRICE as string,\n\t\tCURRENCY as string,\n\t\tPLANETYPE as string,\n\t\tSEATSMAX as string,\n\t\tSEATSOCC as string,\n\t\tPAYMENTSUM as string,\n\t\tSEATSMAX_B as string,\n\t\tSEATSOCC_B as string,\n\t\tSEATSMAX_F as string,\n\t\tSEATSOCC_F as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Flight\nBooking, Customer join(CUSTOMID == ID,\n\tjoinType:'inner',\n\tbroadcast: 'none')~> Join1\nJoin1 select(mapColumn(\n\t\tCARRID,\n\t\tCONNID,\n\t\tFLDATE,\n\t\tBOOKID,\n\t\tCUSTOMID,\n\t\tSMOKER,\n\t\tLUGGWEIGHT,\n\t\tWUNIT,\n\t\tINVOICE,\n\t\tCLASS,\n\t\tFORCURAM,\n\t\tFORCURKEY,\n\t\tLOCCURAM,\n\t\tLOCCURKEY,\n\t\tORDER_DATE,\n\t\tCOUNTER,\n\t\tAGENCYNUM,\n\t\tCANCELLED,\n\t\tRESERVED,\n\t\tPASSNAME,\n\t\tPASSFORM,\n\t\tPASSBIRTH,\n\t\tMANDT = Customer@MANDT,\n\t\tID,\n\t\tNAME,\n\t\tFORM,\n\t\tSTREET,\n\t\tPOSTBOX,\n\t\tPOSTCODE,\n\t\tCITY,\n\t\tCOUNTRY,\n\t\tREGION,\n\t\tTELEPHONE,\n\t\tCUSTTYPE = Customer@CUSTTYPE,\n\t\tDISCOUNT,\n\t\tLANGU,\n\t\tEMAIL,\n\t\tWEBUSER\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> sink1"
+					"script": "\n\nsource(output(\n\t\tMANDT as string,\n\t\tCARRID as string,\n\t\tCONNID as string,\n\t\tFLDATE as string,\n\t\tBOOKID as string,\n\t\tCUSTOMID as string,\n\t\tCUSTTYPE as string,\n\t\tSMOKER as string,\n\t\tLUGGWEIGHT as string,\n\t\tWUNIT as string,\n\t\tINVOICE as string,\n\t\tCLASS as string,\n\t\tFORCURAM as string,\n\t\tFORCURKEY as string,\n\t\tLOCCURAM as integer,\n\t\tLOCCURKEY as string,\n\t\tORDER_DATE as string,\n\t\tCOUNTER as string,\n\t\tAGENCYNUM as string,\n\t\tCANCELLED as string,\n\t\tRESERVED as string,\n\t\tPASSNAME as string,\n\t\tPASSFORM as string,\n\t\tPASSBIRTH as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Booking\nsource(output(\n\t\tMANDT as string,\n\t\tID as string,\n\t\tNAME as string,\n\t\tFORM as string,\n\t\tSTREET as string,\n\t\tPOSTBOX as string,\n\t\tPOSTCODE as string,\n\t\tCITY as string,\n\t\tCOUNTRY as string,\n\t\tREGION as string,\n\t\tTELEPHONE as string,\n\t\tCUSTTYPE as string,\n\t\tDISCOUNT as string,\n\t\tLANGU as string,\n\t\tEMAIL as string,\n\t\tWEBUSER as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Customer\nsource(output(\n\t\tMANDT as string,\n\t\tCARRID as string,\n\t\tCONNID as string,\n\t\tFLDATE as string,\n\t\tPRICE as string,\n\t\tCURRENCY as string,\n\t\tPLANETYPE as string,\n\t\tSEATSMAX as string,\n\t\tSEATSOCC as integer,\n\t\tPAYMENTSUM as string,\n\t\tSEATSMAX_B as string,\n\t\tSEATSOCC_B as string,\n\t\tSEATSMAX_F as string,\n\t\tSEATSOCC_F as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> Flight\nBooking, Customer join(CUSTOMID == ID,\n\tjoinType:'inner',\n\tbroadcast: 'none')~> JoinCustomerNBooking\nJoinCustomerNBooking aggregate(groupBy(CITY),\n\tLOCCURAM = sum(LOCCURAM),\n\tpartitionBy('hash', 1)) ~> Aggregate1\nOccupiedMoreThan300, Booking join(Flight@CONNID == Booking@CONNID\n\t&& Flight@FLDATE == Booking@FLDATE,\n\tjoinType:'inner',\n\tpartitionBy('hash', 1),\n\tbroadcast: 'none')~> JoinFlightNBooking\nJoinFlightNBooking, Customer join(CUSTOMID == ID,\n\tjoinType:'inner',\n\tpartitionBy('hash', 1),\n\tbroadcast: 'none')~> JoinAll\nFlight filter(SEATSOCC > 300) ~> OccupiedMoreThan300\nJoinAll select(mapColumn(\n\t\tCARRID = Flight@CARRID,\n\t\tCONNID = Flight@CONNID,\n\t\tFLDATE = Flight@FLDATE,\n\t\tPRICE,\n\t\tCURRENCY,\n\t\tPLANETYPE,\n\t\tSEATSMAX,\n\t\tSEATSOCC,\n\t\tPAYMENTSUM,\n\t\tSEATSMAX_B,\n\t\tSEATSOCC_B,\n\t\tSEATSMAX_F,\n\t\tSEATSOCC_F,\n\t\tBOOKID,\n\t\tCUSTOMID,\n\t\tSMOKER,\n\t\tLUGGWEIGHT,\n\t\tWUNIT,\n\t\tINVOICE,\n\t\tCLASS,\n\t\tFORCURAM,\n\t\tFORCURKEY,\n\t\tLOCCURAM,\n\t\tLOCCURKEY,\n\t\tORDER_DATE,\n\t\tCOUNTER,\n\t\tAGENCYNUM,\n\t\tCANCELLED,\n\t\tRESERVED,\n\t\tPASSNAME,\n\t\tPASSFORM,\n\t\tPASSBIRTH,\n\t\tMANDT = Customer@MANDT,\n\t\tID,\n\t\tNAME,\n\t\tFORM,\n\t\tSTREET,\n\t\tPOSTBOX,\n\t\tPOSTCODE,\n\t\tCITY,\n\t\tCOUNTRY,\n\t\tREGION,\n\t\tTELEPHONE,\n\t\tCUSTTYPE = Customer@CUSTTYPE,\n\t\tDISCOUNT,\n\t\tLANGU,\n\t\tEMAIL,\n\t\tWEBUSER\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> RemoveDuplicatedColumns\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\temptyLinesAsHeader: 1,\n\tfilePattern:'IncomeByCity',\n\tmapColumn(\n\t\tCITY,\n\t\tLOCCURAM\n\t)) ~> IncomeByCity\nRemoveDuplicatedColumns sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\temptyLinesAsHeader: 1,\n\tfilePattern:'DenormalizedData_OccupiedMoreThan300',\n\tmapColumn(\n\t\tCARRID,\n\t\tCONNID,\n\t\tFLDATE,\n\t\tPRICE,\n\t\tCURRENCY,\n\t\tPLANETYPE,\n\t\tSEATSMAX,\n\t\tSEATSOCC,\n\t\tPAYMENTSUM,\n\t\tSEATSMAX_B,\n\t\tSEATSOCC_B,\n\t\tSEATSMAX_F,\n\t\tSEATSOCC_F,\n\t\tBOOKID,\n\t\tCUSTOMID,\n\t\tSMOKER,\n\t\tLUGGWEIGHT,\n\t\tWUNIT,\n\t\tINVOICE,\n\t\tCLASS,\n\t\tFORCURAM,\n\t\tFORCURKEY,\n\t\tLOCCURAM,\n\t\tLOCCURKEY,\n\t\tORDER_DATE,\n\t\tCOUNTER,\n\t\tAGENCYNUM,\n\t\tCANCELLED,\n\t\tRESERVED,\n\t\tPASSNAME,\n\t\tPASSFORM,\n\t\tPASSBIRTH,\n\t\tMANDT,\n\t\tID,\n\t\tNAME,\n\t\tFORM,\n\t\tSTREET,\n\t\tPOSTBOX,\n\t\tPOSTCODE,\n\t\tCITY,\n\t\tCOUNTRY,\n\t\tREGION,\n\t\tTELEPHONE,\n\t\tCUSTTYPE,\n\t\tDISCOUNT,\n\t\tLANGU,\n\t\tEMAIL,\n\t\tWEBUSER\n\t),\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true) ~> DenormalizedDataAsCSV"
 				}
 			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Load_Transform SAP Data')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Booking Data from SAP",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SapTableSource",
+								"rfcTableOptions": "",
+								"customRfcReadTableFunctionModule": "",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"maxConcurrentConnections": 1
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "MANDT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MANDT",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CARRID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CARRID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CONNID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CONNID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FLDATE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FLDATE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "BOOKID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "BOOKID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CUSTOMID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CUSTOMID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CUSTTYPE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CUSTTYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SMOKER",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SMOKER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LUGGWEIGHT",
+											"type": "Decimal"
+										},
+										"sink": {
+											"name": "LUGGWEIGHT",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "WUNIT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "WUNIT",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "INVOICE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "INVOICE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CLASS",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CLASS",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FORCURAM",
+											"type": "Decimal"
+										},
+										"sink": {
+											"name": "FORCURAM",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "FORCURKEY",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FORCURKEY",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LOCCURAM",
+											"type": "Decimal"
+										},
+										"sink": {
+											"name": "LOCCURAM",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "LOCCURKEY",
+											"type": "String"
+										},
+										"sink": {
+											"name": "LOCCURKEY",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ORDER_DATE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ORDER_DATE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "COUNTER",
+											"type": "String"
+										},
+										"sink": {
+											"name": "COUNTER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AGENCYNUM",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AGENCYNUM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CANCELLED",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CANCELLED",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RESERVED",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RESERVED",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PASSNAME",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PASSNAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PASSFORM",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PASSFORM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PASSBIRTH",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PASSBIRTH",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "1_SRC_SAP_SBook",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "2_STG_SBook",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Merge-Denormalize SAP Data",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy Booking Data from SAP",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy Customer Data from SAP",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy Flight Data from AWS",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Booking": {},
+									"Customer": {},
+									"Flight": {},
+									"IncomeByCity": {},
+									"DenormalizedDataAsCSV": {}
+								}
+							},
+							"staging": {}
+						}
+					},
+					{
+						"name": "Copy Customer Data from SAP",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SapTableSource",
+								"rfcTableOptions": "",
+								"customRfcReadTableFunctionModule": "",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "MANDT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MANDT",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NAME",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FORM",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FORM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "STREET",
+											"type": "String"
+										},
+										"sink": {
+											"name": "STREET",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "POSTBOX",
+											"type": "String"
+										},
+										"sink": {
+											"name": "POSTBOX",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "POSTCODE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "POSTCODE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CITY",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CITY",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "COUNTRY",
+											"type": "String"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "REGION",
+											"type": "String"
+										},
+										"sink": {
+											"name": "REGION",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TELEPHONE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TELEPHONE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CUSTTYPE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CUSTTYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DISCOUNT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DISCOUNT",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LANGU",
+											"type": "String"
+										},
+										"sink": {
+											"name": "LANGU",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EMAIL",
+											"type": "String"
+										},
+										"sink": {
+											"name": "EMAIL",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "WEBUSER",
+											"type": "String"
+										},
+										"sink": {
+											"name": "WEBUSER",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "1_SRC_SAP_SCustom",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "2_STG_SCustom",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Copy Flight Data from AWS",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "MANDT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MANDT",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CARRID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CARRID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CONNID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CONNID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FLDATE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FLDATE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PRICE",
+											"type": "Decimal"
+										},
+										"sink": {
+											"name": "PRICE",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "CURRENCY",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CURRENCY",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PLANETYPE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PLANETYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SEATSMAX",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SEATSMAX",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SEATSOCC",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SEATSOCC",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "PAYMENTSUM",
+											"type": "Decimal"
+										},
+										"sink": {
+											"name": "PAYMENTSUM",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "SEATSMAX_B",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SEATSMAX_B",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SEATSOCC_B",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SEATSOCC_B",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SEATSMAX_F",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SEATSMAX_F",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SEATSOCC_F",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SEATSOCC_F",
+											"type": "Int32"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "1_SRC_AWS_SFlight",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "2_STG_SFlight",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SAP Data Integration"
+				},
+				"annotations": []
+			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/STG_SAP_SBook')]",
-				"[concat(variables('factoryId'), '/datasets/STG_SAP_SCustom')]",
-				"[concat(variables('factoryId'), '/datasets/STG_SAP_SFlight')]"
+				"[concat(variables('factoryId'), '/datasets/1_SRC_SAP_SBook')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
+				"[concat(variables('factoryId'), '/datasets/1_SRC_SAP_SCustom')]"
 			]
 		},
 		{
@@ -2546,771 +3195,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Load Datawarehouse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy Booking Data from SAP",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SapTableSource",
-								"rfcTableOptions": "",
-								"customRfcReadTableFunctionModule": "",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings",
-									"maxConcurrentConnections": 1
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "MANDT",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MANDT",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CARRID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CARRID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CONNID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CONNID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FLDATE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "FLDATE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "BOOKID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "BOOKID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CUSTOMID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CUSTOMID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CUSTTYPE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CUSTTYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SMOKER",
-											"type": "String"
-										},
-										"sink": {
-											"name": "SMOKER",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "LUGGWEIGHT",
-											"type": "Decimal"
-										},
-										"sink": {
-											"name": "LUGGWEIGHT",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "WUNIT",
-											"type": "String"
-										},
-										"sink": {
-											"name": "WUNIT",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "INVOICE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "INVOICE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CLASS",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CLASS",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FORCURAM",
-											"type": "Decimal"
-										},
-										"sink": {
-											"name": "FORCURAM",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "FORCURKEY",
-											"type": "String"
-										},
-										"sink": {
-											"name": "FORCURKEY",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "LOCCURAM",
-											"type": "Decimal"
-										},
-										"sink": {
-											"name": "LOCCURAM",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "LOCCURKEY",
-											"type": "String"
-										},
-										"sink": {
-											"name": "LOCCURKEY",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ORDER_DATE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ORDER_DATE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "COUNTER",
-											"type": "String"
-										},
-										"sink": {
-											"name": "COUNTER",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "AGENCYNUM",
-											"type": "String"
-										},
-										"sink": {
-											"name": "AGENCYNUM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CANCELLED",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CANCELLED",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "RESERVED",
-											"type": "String"
-										},
-										"sink": {
-											"name": "RESERVED",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PASSNAME",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PASSNAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PASSFORM",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PASSFORM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PASSBIRTH",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PASSBIRTH",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SAP_SBook",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "STG_SAP_SBook",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "Merge-Denormalize SAP Data",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [
-							{
-								"activity": "Copy Booking Data from SAP",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Copy Customer Data from SAP",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Copy Flight Data from SAP",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "dataflow1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"Booking": {},
-									"Customer": {},
-									"Flight": {},
-									"sink1": {}
-								}
-							},
-							"staging": {}
-						}
-					},
-					{
-						"name": "Copy Customer Data from SAP",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SapTableSource",
-								"rfcTableOptions": "",
-								"customRfcReadTableFunctionModule": "",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "MANDT",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MANDT",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NAME",
-											"type": "String"
-										},
-										"sink": {
-											"name": "NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FORM",
-											"type": "String"
-										},
-										"sink": {
-											"name": "FORM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "STREET",
-											"type": "String"
-										},
-										"sink": {
-											"name": "STREET",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "POSTBOX",
-											"type": "String"
-										},
-										"sink": {
-											"name": "POSTBOX",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "POSTCODE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "POSTCODE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CITY",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CITY",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "COUNTRY",
-											"type": "String"
-										},
-										"sink": {
-											"name": "COUNTRY",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "REGION",
-											"type": "String"
-										},
-										"sink": {
-											"name": "REGION",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "TELEPHONE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "TELEPHONE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CUSTTYPE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CUSTTYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DISCOUNT",
-											"type": "String"
-										},
-										"sink": {
-											"name": "DISCOUNT",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "LANGU",
-											"type": "String"
-										},
-										"sink": {
-											"name": "LANGU",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EMAIL",
-											"type": "String"
-										},
-										"sink": {
-											"name": "EMAIL",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "WEBUSER",
-											"type": "String"
-										},
-										"sink": {
-											"name": "WEBUSER",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SAP_SCustom",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "STG_SAP_SCustom",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "Copy Flight Data from SAP",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SapTableSource",
-								"rfcTableOptions": "",
-								"customRfcReadTableFunctionModule": "",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "MANDT",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MANDT",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CARRID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CARRID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CONNID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CONNID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FLDATE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "FLDATE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PRICE",
-											"type": "Decimal"
-										},
-										"sink": {
-											"name": "PRICE",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "CURRENCY",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CURRENCY",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PLANETYPE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PLANETYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SEATSMAX",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SEATSMAX",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"name": "SEATSOCC",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SEATSOCC",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"name": "PAYMENTSUM",
-											"type": "Decimal"
-										},
-										"sink": {
-											"name": "PAYMENTSUM",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "SEATSMAX_B",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SEATSMAX_B",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"name": "SEATSOCC_B",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SEATSOCC_B",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"name": "SEATSMAX_F",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SEATSMAX_F",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"name": "SEATSOCC_F",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SEATSOCC_F",
-											"type": "Int32"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SAP_SFlight",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "STG_SAP_SFlight",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "SAP Data Integration"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SAP_SBook')]",
-				"[concat(variables('factoryId'), '/datasets/STG_SAP_SBook')]",
-				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
-				"[concat(variables('factoryId'), '/datasets/SAP_SCustom')]",
-				"[concat(variables('factoryId'), '/datasets/STG_SAP_SCustom')]",
-				"[concat(variables('factoryId'), '/datasets/SAP_SFlight')]",
-				"[concat(variables('factoryId'), '/datasets/STG_SAP_SFlight')]"
 			]
 		}
 	]
