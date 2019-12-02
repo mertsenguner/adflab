@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "SBOOK.txt",
 				"folderPath": "STG_Booking",
 				"container": "sapdata"
 			},

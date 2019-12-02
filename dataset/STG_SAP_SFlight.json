@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "SFLIGHT.txt",
 				"folderPath": "STG_Flight",
 				"container": "sapdata"
 			},
