@@ -1,0 +1,24 @@
+{
+	"name": "3_RSLT_DenormalizedDataMart",
+	"properties": {
+		"description": "All columns brought together in one wide table for easy access to analyse",
+		"linkedServiceName": {
+			"referenceName": "AzStorageStaging",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP Scenario Data Sources"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "RESULT_DataSet",
+				"container": "sapdata"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
