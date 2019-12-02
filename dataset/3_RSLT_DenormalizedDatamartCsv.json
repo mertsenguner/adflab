@@ -1,0 +1,25 @@
+{
+	"name": "3_RSLT_DenormalizedDatamartCsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzStorageStaging",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP Scenario Data Sources"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "RESULT_DataSet",
+				"container": "sapdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
