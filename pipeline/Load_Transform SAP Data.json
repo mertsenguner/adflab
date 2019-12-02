@@ -310,7 +310,7 @@
 						]
 					},
 					{
-						"activity": "Copy Flight Data from SAP",
+						"activity": "Copy Flight Data from AWS",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -542,7 +542,7 @@
 				]
 			},
 			{
-				"name": "Copy Flight Data from SAP",
+				"name": "Copy Flight Data from AWS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
