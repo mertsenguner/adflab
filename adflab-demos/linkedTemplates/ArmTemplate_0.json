@@ -495,6 +495,35 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/BOOK_CUSTOMER')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzStorageStaging",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SAP Scenario Data Sources"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sapdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorageStaging')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DW_Staging_Aircraft')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1033,38 +1062,6 @@
 				],
 				"typeProperties": {
 					"tableName": "[[dbo].[Airline]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure ODS DB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ODS_Airport')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Azure ODS DB",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "E2E Scenario Data Sources"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Code",
-						"type": "varchar"
-					},
-					{
-						"name": "City_Airport",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"tableName": "[[dbo].[Airport]"
 				}
 			},
 			"dependsOn": [
