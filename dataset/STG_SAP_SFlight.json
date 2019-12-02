@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"folderPath": "STG_Flight",
 				"container": "sapdata"
 			},
 			"columnDelimiter": ",",

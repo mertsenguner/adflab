@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"folderPath": "STG_Customer",
 				"container": "sapdata"
 			},
 			"columnDelimiter": ",",
