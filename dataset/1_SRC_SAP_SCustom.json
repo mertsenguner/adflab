@@ -1,5 +1,5 @@
 {
-	"name": "SAP_SCustom",
+	"name": "1_SRC_SAP_SCustom",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SapTable1",

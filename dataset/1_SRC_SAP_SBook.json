@@ -1,5 +1,5 @@
 {
-	"name": "SAP_SBook",
+	"name": "1_SRC_SAP_SBook",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SapTable1",

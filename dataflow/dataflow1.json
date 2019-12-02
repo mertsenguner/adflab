@@ -6,21 +6,21 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "STG_SAP_SBook",
+						"referenceName": "2_STG_SBook",
 						"type": "DatasetReference"
 					},
 					"name": "Booking"
 				},
 				{
 					"dataset": {
-						"referenceName": "STG_SAP_SCustom",
+						"referenceName": "2_STG_SCustom",
 						"type": "DatasetReference"
 					},
 					"name": "Customer"
 				},
 				{
 					"dataset": {
-						"referenceName": "STG_SAP_SFlight",
+						"referenceName": "2_STG_SFlight",
 						"type": "DatasetReference"
 					},
 					"name": "Flight"
@@ -29,7 +29,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "BOOK_CUSTOMER",
+						"referenceName": "3_RSLT_IncomeByCity",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"

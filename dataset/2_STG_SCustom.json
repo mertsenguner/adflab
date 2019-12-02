@@ -1,5 +1,5 @@
 {
-	"name": "STG_SAP_SCustom",
+	"name": "2_STG_SCustom",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzStorageStaging",

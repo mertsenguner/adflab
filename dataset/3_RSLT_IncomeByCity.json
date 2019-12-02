@@ -1,5 +1,5 @@
 {
-	"name": "RSLT_IncomeByCity",
+	"name": "3_RSLT_IncomeByCity",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzStorageStaging",

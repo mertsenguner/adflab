@@ -1,9 +1,12 @@
 {
-	"name": "AWS_SFlight",
+	"name": "1_SRC_AWS_SFlight",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AWS_S3_Source",
 			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP Scenario Data Sources"
 		},
 		"annotations": [],
 		"type": "DelimitedText",

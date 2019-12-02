@@ -1,5 +1,5 @@
 {
-	"name": "STG_SAP_SFlight",
+	"name": "2_STG_SFlight",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzStorageStaging",

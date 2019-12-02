@@ -282,13 +282,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SAP_SBook",
+						"referenceName": "1_SRC_SAP_SBook",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "STG_SAP_SBook",
+						"referenceName": "2_STG_SBook",
 						"type": "DatasetReference"
 					}
 				]
@@ -530,13 +530,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SAP_SCustom",
+						"referenceName": "1_SRC_SAP_SCustom",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "STG_SAP_SCustom",
+						"referenceName": "2_STG_SCustom",
 						"type": "DatasetReference"
 					}
 				]
@@ -555,10 +555,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SapTableSource",
-						"rfcTableOptions": "",
-						"customRfcReadTableFunctionModule": "",
-						"partitionOption": "None"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -720,13 +724,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SAP_SFlight",
+						"referenceName": "1_SRC_AWS_SFlight",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "STG_SAP_SFlight",
+						"referenceName": "2_STG_SFlight",
 						"type": "DatasetReference"
 					}
 				]
