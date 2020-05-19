@@ -328,6 +328,10 @@
 					"dataflow": {
 						"referenceName": "dataflow1",
 						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
 					}
 				}
 			},
@@ -740,5 +744,6 @@
 			"name": "SAP Data Integration"
 		},
 		"annotations": []
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

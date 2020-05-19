@@ -2,6 +2,7 @@
 	"name": "AWS_S3_Source",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
 			"connectionString": "DefaultEndpointsProtocol=https;AccountName=mertfiles;EndpointSuffix=core.windows.net;",

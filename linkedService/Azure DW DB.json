@@ -2,6 +2,7 @@
 	"name": "Azure DW DB",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
 			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=adflabsqlkou7k.database.windows.net;initial catalog=AirlinePerformance-DW;user id=DWLoadUser",

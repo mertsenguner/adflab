@@ -1,18 +1,15 @@
 {
-	"name": "1_SRC_SAP_SBook",
+	"name": "DestinationDataset_ih1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "SapTable1",
+			"referenceName": "MertFiles_ToDemo",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "SAP Scenario Data Sources"
-		},
 		"annotations": [],
-		"type": "SapTableResource",
-		"schema": [],
+		"type": "AzureBlob",
 		"typeProperties": {
-			"tableName": "SBOOK"
+			"fileName": "",
+			"folderPath": "dwtemp"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

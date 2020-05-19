@@ -1,18 +1,15 @@
 {
-	"name": "1_SRC_SAP_SBook",
+	"name": "SourceDataset_ih1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "SapTable1",
+			"referenceName": "Enter Public DataSet",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "SAP Scenario Data Sources"
-		},
 		"annotations": [],
-		"type": "SapTableResource",
-		"schema": [],
+		"type": "AzureBlob",
 		"typeProperties": {
-			"tableName": "SBOOK"
+			"fileName": ".",
+			"folderPath": "training/crime-data-2016"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
